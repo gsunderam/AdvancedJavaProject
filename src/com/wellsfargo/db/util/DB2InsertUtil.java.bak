@@ -1,0 +1,82 @@
+package com.wellsfargo.db.util;
+
+import static log.Logger.stdout;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import java.util.Properties;
+
+public class DB2InsertUtil {
+	
+	private static final String DB2DRIVER; 
+	private static final String USERNAME; 
+	private static final String PASSWORD; 
+	private static final String URL; 
+	
+	static {
+ 		Properties p = new Properties();
+ 		
+ 		String env = System.getProperty("env");
+ 		String filename = env.equalsIgnoreCase("dev") ? System.getProperty("devfile"): System.getProperty("prodfile");
+ 		
+		InputStream is = DB2InsertUtil.class.getResourceAsStream(filename);
+		try {
+			p.load(is);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		DB2DRIVER = p.get("faidb2.driver").toString();
+		PASSWORD = p.get("faidb2.password").toString();
+		USERNAME = p.get("faidb2.username").toString();
+		URL = p.get("faidb2.url").toString();
+		stdout(DB2DRIVER);stdout(PASSWORD);stdout(USERNAME);stdout(URL);stdout("Success!");
+	}
+	
+	
+	public static void main(String[] args) {
+		Connection db2Con = null;
+		PreparedStatement insertStmt = null;
+		
+//		try {
+//			Class.forName(DB2DRIVER);
+//			db2Con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//			stdout("Connection to the DB is " + db2Con);
+//			String insertSql = "INSERT into F1001.T_FAI_CTL(ctl_key, ctl_data_1, ctl_data_2) values(?,?,?)";
+//			
+//			insertStmt = db2Con.prepareStatement(insertSql);
+//			insertStmt.setInt(1, 1025);
+//			insertStmt.setString(2, "PAD_SCR_AGE_HRS");
+//			insertStmt.setString(3, "2");
+//			
+//			int updateCount = insertStmt.executeUpdate();
+//			stdout("Rows inserted :" + updateCount);
+//			
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				if (insertStmt != null) insertStmt.close();
+//				if (db2Con != null) db2Con.close();
+//			} catch (SQLException sqle) {
+//				sqle.printStackTrace();
+//			}
+//		}
+		
+	}
+	
+
+}
