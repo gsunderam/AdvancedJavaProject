@@ -60,7 +60,12 @@ public class CustomHashtable implements Cloneable {
     return cloned;
   }
 
-  private void populateEntries(CustomHashtable cloned) {
+	/**
+	 * Now clone ALSO the individual object "Entry" object entries in the collection. In general when
+	 * the collection contains objects a deep clone of them is needed
+	 * @param cloned
+	 */
+	private void populateEntries(CustomHashtable cloned) {
     cloned.buckets = new Entry[buckets.length];
     boolean first = true;
     for (int i = buckets.length - 1; i >= 0; i--) {

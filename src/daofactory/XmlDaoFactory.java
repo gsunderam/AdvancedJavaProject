@@ -1,13 +1,17 @@
 package daofactory;
 
+/**
+ * Heirarchy of factories.
+ */
 public class XmlDaoFactory extends AbstractDaoFactory {
 	
-	public ComponentDao getComponentDao() {
-		return new XmlComponentDao();
+	public CustomerDao getCustomerDao() {
+		//XmlCustomerDao etc are heirarchies of Objects
+		return new XmlCustomerDao();
 	}
 	
-	public FeaturesDao getFeaturesDao() {
-		return new XmlFeaturesDao();
+	public OrderDao getOrderDao() {
+		return new XmlOrderDao();
 	}
 
 }
